@@ -12,7 +12,8 @@ const runCommand = async (command, args, cwd) => {
           const child = spawn(command, args, {
               stdio: 'inherit',
               shell: true,
-              options: { cwd },
+              cwd
+
           });
           child.on('error', reject);
           child.on('close', (code) => {
@@ -31,7 +32,7 @@ const runCommand = async (command, args, cwd) => {
 
 const bootBuildImageWithGradle = async (projectDir, tag) => {
   console.log(`img building ${projectDir}`);
-  await runCommand('gradle', ['bootBuildImage', `-PimageTag=${tag}`, projectDir])
+  await runCommand('gradle', ['bootBuildImage', `-PimageTag=${tag}`], projectDir)
   console.log(`img built ${projectDir}`)
 };
 
@@ -42,7 +43,7 @@ const selectAndDockerize = async (envDir, headless = false) => {
   if(!headless){
     const check = await select({
       message:
-        "Have you updated all branches to the latest version, for your env branch of the microservices?\nHave you disconnected from the VPN?",
+        "Have you updated all repo branches to the latest version, for your env branch of the microservices?\nHave you disconnected from the VPN?",
       choices: [
         { name: "Yes", value: true },
         { name: "No", value: false },
