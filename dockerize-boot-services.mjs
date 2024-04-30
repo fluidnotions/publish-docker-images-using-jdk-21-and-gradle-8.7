@@ -2,21 +2,37 @@ import { input } from "@inquirer/prompts";
 import select from "@inquirer/select";
 import checkbox from "@inquirer/checkbox";
 import { readdirSync, existsSync } from "fs";
-import { exec } from "child_process";
+import { spawn } from "child_process";
 import { join } from "path";
-import util from "util";
 
-const execPromise = util.promisify(exec);
+
+const runCommand = async (command, args, cwd) => {
+  try {
+      await new Promise((resolve, reject) => {
+          const child = spawn(command, args, {
+              stdio: 'inherit',
+              shell: true,
+              options: { cwd },
+          });
+          child.on('error', reject);
+          child.on('close', (code) => {
+              if (code === 0) {
+                  resolve();
+              } else {
+                  reject(new Error(`Command exited with code ${code}`));
+              }
+          });
+      });
+      console.log('Command completed successfully.');
+  } catch (err) {
+      console.error('Command failed:', err);
+  }
+};
 
 const bootBuildImageWithGradle = async (projectDir, tag) => {
   console.log(`img building ${projectDir}`);
-  await execPromise(
-    `gradle bootBuildImage -PimageTag=${tag}`,
-    {
-      stdio: "inherit",
-      cwd: projectDir,
-    }
-  ).then(() => console.log(`img built ${projectDir}`));
+  await runCommand('gradle', ['bootBuildImage', `-PimageTag=${tag}`, projectDir])
+  console.log(`img built ${projectDir}`)
 };
 
 const selectAndDockerize = async (envDir, headless = false) => {

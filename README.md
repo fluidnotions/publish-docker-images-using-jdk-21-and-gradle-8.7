@@ -15,7 +15,7 @@ To use this image, ensure you have Docker installed on your host machine. Pull t
 #### Pulling the Image
 
 ```bash
-docker pull yourusername/dockerize-boot-services:1.0.0
+docker pull cybicom/dockerize-boot-services:1.0.0
 ```
 
 #### Running the Container
@@ -44,14 +44,6 @@ After running the container, it will either:
 
 This process simplifies the deployment of multiple Spring Boot applications by automating their containerization.
 
-For more detailed documentation and advanced configurations, visit [link to more detailed docs or GitHub repo].
+
 
 ---
-
-### Support
-
-For support, issues, or contributions, please contact support@example.com or submit an issue on our GitHub repository.
-
----
-
-This revised README better explains the specific functionalities of your Docker image, including how it utilizes JDK 21 and Gradle 8.7 for building Spring Boot applications, and the role of the `CLI` environment variable in managing build processes. Adjust the contact information and links as necessary to fit your actual support channels and documentation resources.
