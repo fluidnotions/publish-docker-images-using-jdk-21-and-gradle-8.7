@@ -7,8 +7,8 @@
     "clear": "rmdir /s /q \"dist\"",
     "pkg": "ncc build dockerize-boot-services.mjs -m -o dist",
     "build": "npm run clear && npm run pkg",
-    "dockerize": "docker build -t dockerize-boot-services:1.0.0 .",
-    "test": "set PROJECTS_DIR=C:/dev/roms/dockerize/spring-boot-default-repos && node dockerize-boot-services.mjs"
+    "dockerize": "docker build -t cybicom/dockerize-boot-services:1.0.0 .",
+    "test": "set PROJECTS_DIR=... && node dockerize-boot-services.mjs"
   },
   "author": "",
   "license": "ISC",
