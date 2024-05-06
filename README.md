@@ -9,7 +9,7 @@ docker build -t cybicom/dockerize-boot-services:1.0.0 .
 ## Publish The Runner
 
 ```bash
-docker build -t cybicom/dockerize-boot-services:1.0.0 .
+docker push cybicom/dockerize-boot-services:1.0.0
 ```
 
 ## About 
