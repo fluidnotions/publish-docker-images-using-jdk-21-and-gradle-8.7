@@ -2,6 +2,14 @@
 
 ## Build The Runner
 
+### CLI
+
+```bash
+docker build -t cybicom/dockerize-boot-services:1.0.0 -f Dockerfile.cli
+```
+
+### Slim
+
 ```bash
 docker build -t cybicom/dockerize-boot-services:1.0.0 .
 ```
