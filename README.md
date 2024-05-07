@@ -62,9 +62,9 @@ docker run -it -v %PROJECTS%:/app/projects -v /var/run/docker.sock:/var/run/dock
 node run-docker.mjs
 ```  
 
-This has the cli on the outside and will use the slim version and one run docker image for each project selected.  
+This has the cli on the outside and will use the slim version and will run one docker image for each project selected.  
 
-The script executes this docker run command for each selected project:
+The script executes this docker run command for each selected project (you could of course also execute it directly from the terminal with %?% filled in):
 
 ```bash
 docker run -it -v %PROJECTS%:/app/projects -v /var/run/docker.sock:/var/run/docker.sock -e PROJECT_NAME=%PROJECT_NAME% -e DOCKER_TAG=%DOCKER_TAG% cybicom/dockerize-boot-services:slim-1.0.0
