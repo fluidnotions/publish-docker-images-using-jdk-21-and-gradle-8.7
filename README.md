@@ -91,7 +91,7 @@ This version is used by repo ci/cd, as a build runner.
 After running the container, the behavior depends on the provided environment variables:
 - **CLI Enabled**: Allows you to select specific Spring Boot projects to build and to specify a tag version for each.
 - **CLI Disabled**: Automatically builds and publishes all detected Spring Boot projects using JDK 21 and Gradle 8.7 with the tag 'latest'.
-- **PROJECT_PATH Specified**: If the `-e PROJECT_PATH` is provided, the container will build only the specified project. This is useful for targeted builds, such as in automated pipelines or for specific deployment tasks.
+- **PROJECT_NAME Specified**: If the `-e PROJECT_NAME` is provided, the container will build only the specified project. This is useful for targeted builds, such as in automated pipelines or for specific deployment tasks. (assuming your directory structure is setup so all your repos are cloned into one parent directory - the script skips non-spring-boot projects)
 
 This process simplifies the deployment of multiple Spring Boot applications by automating their containerization.
 
