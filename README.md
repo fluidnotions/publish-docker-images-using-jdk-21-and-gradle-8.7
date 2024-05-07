@@ -31,7 +31,7 @@ docker pull cybicom/dockerize-boot-services:1.0.0
 Use the following command to run the container:
 
 ```bash
-docker run -it -v %PROJECTS%:/app/projects -v /var/run/docker.sock:/var/run/docker.sock -e CLI=true dockerize-boot-services:1.0.0
+docker run -it -v %PROJECTS%:/app/projects -v /var/run/docker.sock:/var/run/docker.sock -e CLI cybicom/dockerize-boot-services:1.0.0
 ```
 
 ### Volume Mounts
@@ -44,9 +44,7 @@ docker run -it -v %PROJECTS%:/app/projects -v /var/run/docker.sock:/var/run/dock
 
 - **CLI**: Set this environment variable to `true` to enable the command-line interface features within the container. When enabled, you can choose specific repositories to build and specify a tag version. If not enabled, all repositories are built and published with the 'latest' tag.
 
-- **PROJECTS_DIR**: Optionally set this to specify a custom directory for Spring Boot projects within the container. Defaults to `/app/projects`.
-
-- **PROJECT_PATH**: Specify a single project path if you want to build just one project. This is typically used with automation or scripts that target specific projects.
+- **PROJECT_NAME**: Specify a single project name, within `/app/projects` if you want to build just one project. This is typically used with automation or scripts that target specific projects.
 
 - **DOCKER_TAG**: Use this to define a custom tag for the built Docker images. Defaults to 'latest' if not specified.
 

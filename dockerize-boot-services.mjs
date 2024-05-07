@@ -16,7 +16,6 @@ const execPromise = (command, projectDir) => {
     });
     process.on("exit", (code) => {
       if (code === 0) {
-        console.log("Docker image built successfully.");
         resolve();
       } else {
         reject(new Error(`Process exited with code ${code}`));
@@ -58,8 +57,7 @@ const bootBuildImageWithGradle = async (projectDir, tag) => {
   }
 };
 
-const selectAndDockerize = async (envDir, headless = false) => {
-  const directory = (envDir && envDir.trim()) || "/app/projects";
+const selectAndDockerize = async (directory, headless = false) => {
   let dockerTag = "latest";
   if (!headless) {
     const check = await select({
@@ -115,12 +113,12 @@ const selectAndDockerize = async (envDir, headless = false) => {
   console.log("finished building selected docker images");
 };
 
-const envDir = process.env.PROJECTS_DIR;
+const directory = "/app/projects";
 const headless = !!process.env.CLI;
-const projectPath = process.env.PROJECT_PATH;
-const dockerTag = process.env.DOCKER_TAG;
-if (!projectPath) {
-  await selectAndDockerize(envDir, headless);
+const projectName = process.env.PROJECT_NAME;
+const dockerTag = process.env.DOCKER_TAG || "latest";
+if (!projectName) {
+  await selectAndDockerize(directory, headless);
 } else {
-  await bootBuildImageWithGradle(projectPath, dockerTag);
+  await bootBuildImageWithGradle(join(directory, projectName), dockerTag);
 }

@@ -7,8 +7,10 @@
     "clear": "rmdir /s /q \"dist\"",
     "pkg": "ncc build dockerize-boot-services.mjs -m -o dist",
     "build": "npm run clear && npm run pkg",
-    "dockerize": "docker build -t cybicom/dockerize-boot-services:1.0.0 .",
-    "test": "set PROJECTS_DIR=... && node dockerize-boot-services.mjs"
+    "dockerize:cli": "docker build -t cybicom/dockerize-boot-services:1.0.0 -f Dockerfile.cli",
+    "dockerize": "docker build -t cybicom/dockerize-boot-services:slim-1.0.0 .",
+    "test": "set PROJECTS_DIR=... && node dockerize-boot-services.mjs",
+    "batch:run": "node run-docker.mjs"
   },
   "author": "",
   "license": "ISC",
