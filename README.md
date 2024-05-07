@@ -12,6 +12,10 @@ docker build -t cybicom/dockerize-boot-services:1.0.0 .
 docker push cybicom/dockerize-boot-services:1.0.0
 ```
 
+```bash
+docker push cybicom/dockerize-boot-services:slim-1.0.0
+```
+
 ## About 
 
 This Docker image is designed to automate the building of Spring Boot repositories into Docker images using JDK 21 and Gradle 8.7, and subsequently push them to the host's Docker registry. It supports selective building and tagging through a CLI if enabled.
@@ -26,13 +30,39 @@ To use this image, ensure you have Docker installed on your host machine. Pull t
 docker pull cybicom/dockerize-boot-services:1.0.0
 ```
 
+```bash
+docker pull cybicom/dockerize-boot-services:slim-1.0.0
+```
+
 #### Running the Container
+
+##### Default with CLI
 
 Use the following command to run the container:
 
 ```bash
 docker run -it -v %PROJECTS%:/app/projects -v /var/run/docker.sock:/var/run/docker.sock -e CLI cybicom/dockerize-boot-services:1.0.0
 ```
+
+##### Slim Without
+
+* clone the repo
+* run: npm install
+
+
+```bash
+node run-docker.mjs
+```  
+
+This has the cli on the outside and will use the slim version and one run docker image for each project selected.  
+
+The script executes this docker run command for each selected project:
+
+```bash
+docker run -it -v %PROJECTS%:/app/projects -v /var/run/docker.sock:/var/run/docker.sock -e PROJECT_NAME=%PROJECT_NAME% -e DOCKER_TAG=%DOCKER_TAG% cybicom/dockerize-boot-services:slim-1.0.0
+```  
+
+This version is used by repo ci/cd, as a build runner. 
 
 ### Volume Mounts
 
@@ -42,7 +72,7 @@ docker run -it -v %PROJECTS%:/app/projects -v /var/run/docker.sock:/var/run/dock
 
 ### Environment Variables
 
-- **CLI**: Set this environment variable to `true` to enable the command-line interface features within the container. When enabled, you can choose specific repositories to build and specify a tag version. If not enabled, all repositories are built and published with the 'latest' tag.
+- **CLI**: Set this environment variable to `true` to enable the command-line interface features within the container. When enabled, you can choose specific repositories to build and specify a tag version. If not enabled, all repositories are built and published with the 'latest' tag. Only available in non-slim version
 
 - **PROJECT_NAME**: Specify a single project name, within `/app/projects` if you want to build just one project. This is typically used with automation or scripts that target specific projects.
 
